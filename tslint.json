@@ -1,3 +1,18 @@
 {
-  "extends": "tslint:latest"
+  "extends": "tslint:latest",
+  "rules": {
+    "interface-name": [
+      "never-prefix"
+    ],
+    "quotemark": [
+      "single"
+    ],
+    "max-line-length": [
+      false
+    ],
+    "object-literal-sort-keys": false,
+    "trailing-comma": [
+      false
+    ]
+  }
 }
