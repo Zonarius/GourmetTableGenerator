@@ -1,6 +1,6 @@
 {
   "name": "gourmet-table-generator",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "gourmet-table-generator",
   "license": "MIT",
   "repository": "",
@@ -23,11 +23,7 @@
     "watch:test": "npm run test -- --watch"
   },
   "dependencies": {
-    "@types/request": "^0.0.43",
-    "@types/request-promise": "^4.1.33",
-    "@types/request-promise-native": "^1.0.5",
-    "request": "^2.81.0",
-    "request-promise-native": "^1.0.4"
+    "moment": "^2.18.1",
   },
   "devDependencies": {
     "@types/chai": "^3.0.0",
