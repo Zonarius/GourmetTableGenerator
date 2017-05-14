@@ -4,3 +4,4 @@ npm-debug.log
 .nyc_output
 config.json
 output
+html/index.html

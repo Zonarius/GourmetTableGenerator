@@ -6,7 +6,7 @@ import * as path from 'path';
 import { Cache } from './cache';
 import { Config, readConfig } from './config';
 import { CacheChanges, RenderData } from "./model";
-import { writeRaw } from "./rawrenderer";
+import { writeHTML, writeRaw } from "./renderer";
 
 const api = new GourmetAPI();
 const config = readConfig();
@@ -22,6 +22,7 @@ cache.readCache();
         data: map(cache.data)
     };
     writeRaw(config, data);
+    writeHTML(config, data);
 })();
 
 async function fetchMeals(): Promise<CacheChanges> {

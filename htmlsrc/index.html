@@ -1,0 +1,27 @@
+<html lang="de">
+    <head>
+        <title>Gourmet Speiseliste</title>
+    </head>
+    <script>
+        let data = {{ data | dump(2) | safe }};
+    </script>
+    <link rel="stylesheet" href="assets/css/bootstrap.css" /> 
+    <script async defer src="assets/js/bundle.js"></script>
+    <body>
+        <header>
+            <p>Data was fetched at {{ fetchTime }}</p>
+            <p><a href="raw.json">Raw JSON data</a></p>
+        </header>
+        <main>
+            <table id="maintable" class="table">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Price</td>
+                        <td>kcal</td>
+                    </tr>
+                </thead>
+            </table>
+        </main>
+    </body>
+</html>
