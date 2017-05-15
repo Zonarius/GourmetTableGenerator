@@ -5,4 +5,5 @@ npm-debug.log
 config.json
 output
 html/index.html
+html/raw.json
 cache.json
