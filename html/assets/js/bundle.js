@@ -38001,7 +38001,7 @@ __webpack_require__(3);
 const vue_1 = __webpack_require__(4);
 const columns = [
     { title: "Name", data: 'name', visible: true },
-    { title: "Bild", data: 'imageUrl', render: renderImage, visible: false, orderable: false },
+    { name: "image", title: "Bild", data: 'imageUrl', render: renderImage, visible: false, orderable: false },
     { name: "Available", title: "Verfügbar", data: 'available', visible: false },
     { title: "Preis", data: 'price', render: renderUnit(" €"), visible: true },
     { title: "Gewicht", data: 'weight', render: renderUnit("g"), visible: true },
@@ -38030,6 +38030,10 @@ const vueOptions = {
     methods: {
         toggleColumn(index, visible) {
             table.column(index).visible(visible);
+            if (columns[index].name === 'image' && visible) {
+                table.rows().invalidate();
+                table.draw();
+            }
             saveVisibility();
         },
         toggleUnavailable() {
@@ -38066,9 +38070,15 @@ function renderUnit(unit) {
         }
     };
 }
-function renderImage(value, type) {
+function renderImage(value, type, row, meta) {
+    const api = $.fn.dataTable.Api(meta.settings);
     if (type === "display") {
-        return `<img src="${value}" />`;
+        if (api.column("image:name").visible()) {
+            return `<img src="${value}" />`;
+        }
+        else {
+            return '';
+        }
     }
     else {
         return value;

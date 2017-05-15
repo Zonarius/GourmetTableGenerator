@@ -10,7 +10,7 @@ declare var data: MealDetail[];
 type dataType = "filter" | "display" | "type" | "sort";
 const columns: any[] = [
     { title: "Name", data: 'name', visible: true },
-    { title: "Bild", data: 'imageUrl', render: renderImage, visible: false, orderable: false },
+    { name: "image", title: "Bild", data: 'imageUrl', render: renderImage, visible: false, orderable: false },
     { name: "Available", title: "Verfügbar", data: 'available', visible: false },
     { title: "Preis", data: 'price', render: renderUnit(" €"), visible: true },
     { title: "Gewicht", data: 'weight', render: renderUnit("g"), visible: true },
@@ -42,6 +42,10 @@ const vueOptions = {
     methods: {
         toggleColumn(index: number, visible: boolean) {
             table.column(index).visible(visible);
+            if (columns[index].name === 'image' && visible) {
+                table.rows().invalidate();
+                table.draw();
+            }
             saveVisibility();
         },
         toggleUnavailable() {
@@ -81,9 +85,14 @@ function renderUnit(unit: string) {
     };
 }
 
-function renderImage(value: string, type: dataType) {
+function renderImage(value: string, type: dataType, row: any, meta: any) {
+    const api = $.fn.dataTable.Api(meta.settings);
     if (type === "display") {
-        return `<img src="${value}" />`;
+        if (api.column("image:name").visible()) {
+            return `<img src="${value}" />`;
+        } else {
+            return '';
+        }
     } else {
         return value;
     }
