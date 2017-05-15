@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-    "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+    "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty && webpack",
     "test": "npm run build && mocha --compilers ts:ts-node/register --recursive 'test/**/*-spec.ts'",
     "coverage": "nyc --include='src/**/*.ts' --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register --recursive 'test/**/*.test.ts'",
     "watch": "npm run build -- --watch",
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "es6-promisify": "^5.0.0",
+    "gourmet-api": "^0.0.3",
     "moment": "^2.18.1",
     "nunjucks": "^3.0.0"
   },
@@ -48,6 +49,7 @@
     "ts-node": "^3.0.0",
     "tslint": "^5.0.0",
     "typescript": "^2.0.0",
+    "vue": "^2.3.3",
     "webpack": "^2.5.1"
   },
   "engines": {

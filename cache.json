@@ -2180,7 +2180,7 @@
     "mealId": 2103931,
     "imageUrl": "https://gourmetalaclick.blob.core.windows.net/img/mealitems/2103931.png",
     "description": "Flaumige Topfenknödel mit einer Nutella-Fülle, gerollt in süßen Haselnussbröseln.",
-    "weight": 1,
+    "weight": 1.45,
     "properties": [
       "Schweinefleischfrei",
       "Vegetarisch"

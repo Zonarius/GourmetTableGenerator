@@ -18,6 +18,9 @@
     "no-console": [
       false
     ],
-    "no-string-literal": false
+    "no-string-literal": false,
+    "ordered-imports": [
+      false
+    ]
   }
 }

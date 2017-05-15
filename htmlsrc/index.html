@@ -1,27 +1,52 @@
 <html lang="de">
-    <head>
-        <title>Gourmet Speiseliste</title>
-    </head>
-    <script>
-        let data = {{ data | dump(2) | safe }};
-    </script>
-    <link rel="stylesheet" href="assets/css/bootstrap.css" /> 
-    <script async defer src="assets/js/bundle.js"></script>
-    <body>
-        <header>
-            <p>Data was fetched at {{ fetchTime }}</p>
-            <p><a href="raw.json">Raw JSON data</a></p>
-        </header>
-        <main>
-            <table id="maintable" class="table">
-                <thead>
-                    <tr>
-                        <td>Name</td>
-                        <td>Price</td>
-                        <td>kcal</td>
-                    </tr>
-                </thead>
-            </table>
-        </main>
-    </body>
+
+<head>
+  <title>Gourmet Speiseliste</title>
+</head>
+<script>
+  let data = {{ data | dump(2) | safe }};
+
+</script>
+<link rel="stylesheet" href="assets/css/bootstrap.css" />
+<link rel="stylesheet" href="assets/css/datatables.min.css" />
+<script async defer src="assets/js/bundle.js"></script>
+
+<body>
+  <main class="container">
+    <div id="app">
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                aria-controls="collapseOne">
+                Columns
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel">
+            <div class="panel-body" id="columnBoxes">
+              <div class="checkbox" v-for="(col, index) in columns">
+                <label><input type="checkbox" v-model="col.visible" @change="toggleColumn(index, col.visible)"/>{{col.title}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkbox">
+        <label><input type="checkbox" v-model="showUnavailable" @change="toggleUnavailable()"/>Show unavailable Meals</label>
+      </div>
+    </div>
+    <table id="maintable" class="table">
+      <thead>
+      </thead>
+    </table>
+  </main>
+  <footer>
+    <p>Data was fetched at {{ fetchTime }}</p>
+    <p><a href="raw.json">Raw JSON data</a></p>
+  </footer>
+</body>
+
 </html>
