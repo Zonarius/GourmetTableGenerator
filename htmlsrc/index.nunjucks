@@ -13,6 +13,33 @@
 
 <body>
   <main class="container">
+    {% if changes.new.length > 0 or changes.available.length > 0 or changes.unavailable.length > 0 %}
+    <h2>Änderungen</h2>
+    {% if changes.new.length > 0 %}
+    <h3>Neue Speisen</h3>
+    <ul>
+    {% for meal in changes.new %}
+    <li>{{ meal.name }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% if changes.available.length > 0 %}
+    <h3>Bestellbar</h3>
+    <ul>
+    {% for meal in changes.available %}
+    <li>{{ meal.name }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% if changes.unavailable.length > 0 %}
+    <h3>Nicht mehr bestellbar</h3>
+    <ul>
+    {% for meal in changes.unavailable %}
+    <li>{{ meal.name }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endif %}
     <div id="app">
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -20,14 +47,19 @@
             <h4 class="panel-title">
               <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
                 aria-controls="collapseOne">
-                Columns
+                Spalten
               </a>
             </h4>
           </div>
           <div id="collapseOne" class="panel-collapse collapse" role="tabpanel">
             <div class="panel-body" id="columnBoxes">
               <div class="checkbox" v-for="(col, index) in columns">
-                <label><input type="checkbox" v-model="col.visible" @change="toggleColumn(index, col.visible)"/>{{col.title}}</label>
+                <label>
+                  <input type="checkbox" v-model="col.visible" @change="toggleColumn(index, col.visible)"/>
+                  {% raw %}
+                  {{col.title}}
+                  {% endraw %}
+                </label>
               </div>
             </div>
           </div>
@@ -35,7 +67,7 @@
       </div>
 
       <div class="checkbox">
-        <label><input type="checkbox" v-model="showUnavailable" @change="toggleUnavailable()"/>Show unavailable Meals</label>
+        <label><input type="checkbox" v-model="showUnavailable" @change="toggleUnavailable()"/>Nicht verfügbare Speisen anzeigen</label>
       </div>
     </div>
     <table id="maintable" class="table">

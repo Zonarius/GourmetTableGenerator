@@ -6,7 +6,7 @@ import * as path from 'path';
 import { Cache } from './cache';
 import { Config, readConfig } from './config';
 import { CacheChanges, RenderData } from "./model";
-import { writeHTML, writeRaw } from "./renderer";
+import { render } from "./renderer";
 
 const api = new GourmetAPI();
 const config = readConfig();
@@ -21,8 +21,7 @@ cache.readCache();
         changes,
         data: map(cache.data)
     };
-    writeRaw(config, data);
-    writeHTML(config, data);
+    render(config, data);
 })();
 
 async function fetchMeals(): Promise<CacheChanges> {
@@ -35,19 +34,27 @@ async function fetchMeals(): Promise<CacheChanges> {
             newMeals.push(meal);
         } else if (cached.available !== meal.available) {
             if (meal.available) {
-                ch.available.push(cached);
+                ch.available.push({ ...cached });
             } else {
-                ch.unavailable.push(cached);
+                ch.unavailable.push({ ...cached });
             }
+            cached.available = meal.available;
         }
         return ch;
     }, emptyChanges());
+
+    if (newMeals.length > 0) {
+        console.log(`Filling cache with ${newMeals.length} new meals...`);
+    }
+    let count = 0;
 
     const cacheFill = newMeals
         .map(it => api.getMealDetail(it.id)
             .then(res => {
                 cache.data[res.id] = res;
                 changes.new.push(res);
+                count++;
+                console.log(`${count}/${newMeals.length}`);
             }));
     await Promise.all(cacheFill);
     cache.saveCache();

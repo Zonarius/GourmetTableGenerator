@@ -24,7 +24,6 @@ const columns: any[] = [
     { title: "Eiweiß", data: 'protein', render: renderUnit("g"), visible: false },
     { title: "Salz", data: 'salt', render: renderUnit("g"), visible: false },
     { title: "Broteinheiten", data: 'breadunit', render: renderUnit(""), visible: false },
-
 ];
 
 loadVisibility();
