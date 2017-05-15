@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as path from 'path';
 
 export interface Config {
     outputDir: string;
@@ -17,7 +18,7 @@ export const defaultConfig: Config = {
 const configPath = 'config.json';
 
 export function readConfig(): Config {
-    const fileConfig: Config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    const fileConfig: Config = JSON.parse(fs.readFileSync(path.join(__dirname, configPath), 'utf-8'));
     return {
         ...defaultConfig,
         ...fileConfig
