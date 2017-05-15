@@ -2,6 +2,7 @@
 
 <head>
   <title>Gourmet Speiseliste</title>
+  <meta charset="utf-8"/>
 </head>
 <script>
   let data = {{ data | dump(2) | safe }};
